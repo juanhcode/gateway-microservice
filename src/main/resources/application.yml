@@ -20,4 +20,4 @@ spring:
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
-    org.springframework.web: DEBUG
+    org.springframework.web: INFO
