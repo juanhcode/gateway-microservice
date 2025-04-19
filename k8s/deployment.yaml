@@ -16,12 +16,17 @@ spec:
     spec:
       containers:
         - name: gateway-microservice
-          image: juanhoyos/microservice:gateway-v1
+          image: juanhoyos/microservice:gateway-v2
           ports:
             - containerPort: 8080
           env:
             - name: SERVER_PORT
               value: "8080"
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: jwt
           resources:
             limits:
               memory: "512Mi"
