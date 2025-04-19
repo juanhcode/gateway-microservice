@@ -22,6 +22,11 @@ spec:
           env:
             - name: SERVER_PORT
               value: "8080"
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: jwt
           resources:
             limits:
               memory: "512Mi"
