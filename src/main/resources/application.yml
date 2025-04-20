@@ -5,14 +5,14 @@ spring:
     gateway:
       routes:
         - id: user-service
-          uri: http://microservice-user:8081
+          uri: http://user-microservice:8081
           predicates:
             - Path=/users/**
           filters:
             - AuthenticationFilter
 
         - id: auth-service
-          uri: http://microservice-auth:8082
+          uri: http://auth-service:8082
           predicates:
             - Path=/auth/**
 
