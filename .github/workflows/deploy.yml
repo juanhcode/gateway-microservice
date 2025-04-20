@@ -7,7 +7,7 @@ on:
       - develop
 
 env:
-  IMAGE_NAME: juanhoyos/microservice:gateway-v3
+  IMAGE_NAME: juanhoyos/microservice:gateway-v4
   REGISTRY: docker.io
 
 jobs:
