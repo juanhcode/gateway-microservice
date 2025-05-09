@@ -10,18 +10,61 @@ spring:
             - Path=/users/**
           filters:
             - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                name: userCircuitBreaker
+                fallbackUri: forward:/fallback/users
+            - name: Retry
+              args:
+                retries: 2
+                statuses: BAD_GATEWAY, GATEWAY_TIMEOUT
+                methods: GET
 
         - id: auth-service
           uri: http://auth-service:8082
           predicates:
             - Path=/auth/**
-
-        - id: notification-service
-          uri: http://notification-service:8083
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: authCircuitBreaker
+                fallbackUri: forward:/fallback/auth
+        - id: notifications-service
+          uri: http://notifications-service:8083
           predicates:
             - Path=/notifications/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: notificationsCircuitBreaker
+                fallbackUri: forward:/fallback/notifications
+    httpclient:
+      connect-timeout: 5000
+      response-timeout: 5s
+
+resilience4j.circuitbreaker:
+  instances:
+    userCircuitBreaker:
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10s
+      permittedNumberOfCallsInHalfOpenState: 3
+    authCircuitBreaker:
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10s
+      permittedNumberOfCallsInHalfOpenState: 3
+    notificationsCircuitBreaker:
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10s
+      permittedNumberOfCallsInHalfOpenState: 3
 
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
     org.springframework.web: INFO
+    com.tu.paquete.gateway: WARN
