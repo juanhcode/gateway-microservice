@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
+      - develop
 
 env:
-  IMAGE_NAME: juanhoyos/microservice:gateway-v8
+  IMAGE_NAME: juanhoyos/microservice:gateway-v9
   REGISTRY: docker.io
 
 jobs:
