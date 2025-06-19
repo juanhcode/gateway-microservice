@@ -1,6 +1,7 @@
 package com.develop.gateway_microservice.filter;
 
 import com.develop.gateway_microservice.util.JWTUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
+@Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     @Autowired
@@ -30,6 +32,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             if(routeValidator.isSecured.test(exchange.getRequest())) {
                 // La cabecera tiene el token o no
                 if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)){
+                    log.warn("[AUTH] Faltante header de autorización");
                     return onError(exchange,"Authorization header is missing", 401);
                 }
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
@@ -39,7 +42,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 try {
                     jwtUtils.validateToken(authHeader);
                 } catch (Exception e) {
-                    System.out.println("Excepcion: " + e.getMessage());
+                    log.warn("[AUTH] Token inválido o expirado: {}", e.getMessage());
                     return onError(exchange, "Token is invalid or expired", 403);
                 }
             }
