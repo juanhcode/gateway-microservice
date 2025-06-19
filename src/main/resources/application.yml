@@ -38,6 +38,16 @@ spring:
               args:
                 name: notificationsCircuitBreaker
                 fallbackUri: forward:/fallback/notifications
+        - id: orders-service
+          uri: http://orders-service:8084
+          predicates:
+            - Path=/orders/**
+          filters:
+            - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                name: ordersCircuitBreaker
+                fallbackUri: forward:/fallback/orders
     httpclient:
       connect-timeout: 5000
       response-timeout: 5s
