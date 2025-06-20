@@ -49,6 +49,17 @@ spring:
               args:
                 name: ordersCircuitBreaker
                 fallbackUri: forward:/fallback/orders
+        - id: payment-status-service
+          uri: http://payment-status-microservice:8085
+          predicates:
+            - Path=/payment-status/**
+          filters:
+            - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                name: paymentStatusCircuitBreaker
+                fallbackUri: forward:/fallback/payment-status
+
     httpclient:
       connect-timeout: 5000
       response-timeout: 5s
