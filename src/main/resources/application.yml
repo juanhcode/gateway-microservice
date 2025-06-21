@@ -10,16 +10,16 @@ spring:
             - Path=/users/**
           filters:
             - AuthenticationFilter
-            - name: CircuitBreaker
-              args:
-                name: userCircuitBreaker
-                fallbackUri: forward:/fallback/users
-                statusCodes: 500, 502, 503, 504
-            - name: Retry
-              args:
-                retries: 2
-                statuses: BAD_GATEWAY, GATEWAY_TIMEOUT
-                methods: GET, POST
+#            - name: CircuitBreaker
+#              args:
+#                name: userCircuitBreaker
+#                fallbackUri: forward:/fallback/users
+#                statusCodes: 500, 502, 503, 504
+#            - name: Retry
+#              args:
+#                retries: 2
+#                statuses: BAD_GATEWAY, GATEWAY_TIMEOUT
+#                methods: GET, POST
 
         - id: auth-service
           uri: http://auth-service:8082
