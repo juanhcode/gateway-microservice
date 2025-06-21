@@ -4,7 +4,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: user-service
+        - id: user-microservice
           uri: http://user-microservice:8081
           predicates:
             - Path=/users/**
