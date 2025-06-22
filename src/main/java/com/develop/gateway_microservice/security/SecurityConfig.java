@@ -19,7 +19,8 @@ public class SecurityConfig {
         http
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers("/users/create").permitAll()
-                        .pathMatchers("/auth/**").permitAll()
+                        .pathMatchers("/auth/login").permitAll()
+                        .pathMatchers("/auth/register").permitAll()
                         .anyExchange().authenticated()
                 )
                 .csrf(csrf -> csrf.disable());
