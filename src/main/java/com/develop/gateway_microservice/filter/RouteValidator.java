@@ -19,7 +19,8 @@ public class RouteValidator {
     private static final Map<String, List<String>> roleAccessMap = Map.of(
             "Administrator", List.of("/users/**", "/orders/**", "/payment-status/**"),
             "Delivery", List.of("/orders/**", "/payment-status/**"),
-            "Customer", List.of("/orders/**", "/payment-status/**")
+            "Customer", List.of("/orders/**", "/payment-status/**"),
+            "default-role", List.of("/users/get-users")
     );
 
     public Predicate<ServerHttpRequest> isSecured =
