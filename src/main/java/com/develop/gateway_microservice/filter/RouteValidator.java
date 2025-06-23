@@ -4,6 +4,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 @Component
@@ -15,9 +16,20 @@ public class RouteValidator {
             "/users/create"
     );
 
+    private static final Map<String, List<String>> roleAccessMap = Map.of(
+            "Administrator", List.of("/users/**", "/orders/**", "/payment-status/**"),
+            "Delivery", List.of("/orders/**", "/payment-status/**"),
+            "Customer", List.of("/orders/**", "/payment-status/**")
+    );
+
     public Predicate<ServerHttpRequest> isSecured =
             request -> openApiEndpoints
                     .stream()
                     .noneMatch(uri -> request.getURI().getPath().startsWith(uri));
 
+    public boolean hasAccess(String role, String path) {
+        return roleAccessMap.getOrDefault(role, List.of())
+                .stream()
+                .anyMatch(path::startsWith);
+    };
 }

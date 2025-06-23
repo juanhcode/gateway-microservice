@@ -49,6 +49,10 @@ public class JWTUtils {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
     public Claims extractAllClaims(String token) {
         return Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token).getPayload();
     }

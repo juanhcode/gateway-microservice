@@ -29,18 +29,25 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
-            if(routeValidator.isSecured.test(exchange.getRequest())) {
-                // La cabecera tiene el token o no
-                if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)){
+            if (routeValidator.isSecured.test(exchange.getRequest())) {
+                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     log.warn("[AUTH] Faltante header de autorización");
-                    return onError(exchange,"Authorization header is missing", 401);
+                    return onError(exchange, "Authorization header is missing", 401);
                 }
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if(authHeader.startsWith("Bearer ")) {
-                    authHeader= authHeader.substring(7);
+                if (authHeader.startsWith("Bearer ")) {
+                    authHeader = authHeader.substring(7);
                 }
                 try {
                     jwtUtils.validateToken(authHeader);
+                    String userRole = jwtUtils.extractRole(authHeader);
+                    String path = exchange.getRequest().getURI().getPath();
+
+                    // Validar si el rol tiene acceso a la ruta
+                    if (!routeValidator.hasAccess(userRole, path)) {
+                        log.warn("[AUTH] Acceso denegado para el rol: {}", userRole);
+                        return onError(exchange, "Access denied for role: " + userRole, 403);
+                    }
                 } catch (Exception e) {
                     log.warn("[AUTH] Token inválido o expirado: {}", e.getMessage());
                     return onError(exchange, "Token is invalid or expired", 403);
