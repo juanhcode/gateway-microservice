@@ -19,7 +19,8 @@ public class RouteValidator {
     private static final Map<String, Map<String, List<String>>> roleAccessMap = Map.of(
             "Administrator", Map.of(
                     "GET", List.of(
-                            "/products/**",
+                            "/products",
+                            "/products/*",
                             "/orders/purchases/**",
                             "/payment-status/**",
                             "/notifications/**",
@@ -27,8 +28,8 @@ public class RouteValidator {
                             "/auth/**"
                     ),
                     "POST", List.of(
-                            "/products/**",
-                            "/orders/purchases/**",
+                            "/products",
+                            "/orders/purchases",
                             "/payment-status/**",
                             "/notifications/**",
                             "/users/**",
