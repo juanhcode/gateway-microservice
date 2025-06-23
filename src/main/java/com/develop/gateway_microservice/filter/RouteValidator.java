@@ -20,7 +20,7 @@ public class RouteValidator {
             "Administrator", Map.of(
                     "GET", List.of(
                             "/products",
-                            "/products/*",
+                            "/products/**",
                             "/orders/purchases/**",
                             "/payment-status/**",
                             "/notifications/**",
