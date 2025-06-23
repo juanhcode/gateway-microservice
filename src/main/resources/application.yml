@@ -59,6 +59,16 @@ spring:
               args:
                 name: paymentStatusCircuitBreaker
                 fallbackUri: forward:/fallback/payment-status
+        - id: products-service
+          uri: http://products-service:8086
+          predicates:
+            - Path=/products/**
+          filters:
+            - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                name: productsCircuitBreaker
+                fallbackUri: forward:/fallback/products
 
     httpclient:
       connect-timeout: 5000
