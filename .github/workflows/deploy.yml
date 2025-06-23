@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: juanhoyos/microservice:gateway-v32
+  IMAGE_NAME: juanhoyos/microservice:gateway-v33
   REGISTRY: docker.io
 
 jobs:

@@ -53,8 +53,17 @@ public class RouteValidator {
                     )
             ),
             "Delivery", Map.of(
-                    "GET", List.of("/orders/purchases/*/*", "/products", "/products/*"),
-                    "POST", List.of("/users/get-users")
+                    "GET", List.of(
+                            "/users/*",
+                            "/orders/purchases/*/*",
+                            "/products",
+                            "/products/*",
+                            "/notifications/*"
+                    ),
+                    "POST", List.of(
+                            "/users/get-users",
+                            "/users"
+                    )
             ),
             "Customer", Map.of(
                     "GET", List.of("/products", "/products/*", "/orders/purchases/*", "/orders/purchases/*/*", "/notifications/*"),
