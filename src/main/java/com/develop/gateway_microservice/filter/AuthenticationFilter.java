@@ -42,9 +42,10 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     jwtUtils.validateToken(authHeader);
                     String userRole = jwtUtils.extractRole(authHeader);
                     String path = exchange.getRequest().getURI().getPath();
+                    String method = exchange.getRequest().getMethod().name();
 
                     // Validar si el rol tiene acceso a la ruta
-                    if (!routeValidator.hasAccess(userRole, path)) {
+                    if (!routeValidator.hasAccess(userRole, method, path)) {
                         log.warn("[AUTH] Acceso denegado para el rol: {}", userRole);
                         return onError(exchange, "Access denied for role: " + userRole, 403);
                     }

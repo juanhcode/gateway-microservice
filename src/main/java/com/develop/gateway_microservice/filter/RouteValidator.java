@@ -16,11 +16,24 @@ public class RouteValidator {
             "/users/create"
     );
 
-    private static final Map<String, List<String>> roleAccessMap = Map.of(
-            "Administrator", List.of("/users/**", "/orders/**", "/payment-status/**"),
-            "Delivery", List.of("/orders/**", "/payment-status/**"),
-            "Customer", List.of("/orders/**", "/payment-status/**"),
-            "default-role", List.of("/users/get-users")
+    private static final Map<String, Map<String, List<String>>> roleAccessMap = Map.of(
+            "Administrator", Map.of(
+                    "GET", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**"),
+                    "POST", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**"),
+                    "PUT", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**"),
+                    "DELETE", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**")
+            ),
+            "Delivery", Map.of(
+                    "GET", List.of("/orders/purchases/*/*", "/products", "/products/*"),
+                    "POST", List.of("/users/get-users")
+            ),
+            "Customer", Map.of(
+                    "GET", List.of("/products", "/products/*", "/orders/purchases/*", "/orders/purchases/*/*", "/notifications/*"),
+                    "POST", List.of("/orders/purchases", "/users/get-users")
+            ),
+            "default-role", Map.of(
+                    "POST", List.of("/users/get-users")
+            )
     );
 
     public Predicate<ServerHttpRequest> isSecured =
@@ -28,8 +41,9 @@ public class RouteValidator {
                     .stream()
                     .noneMatch(uri -> request.getURI().getPath().startsWith(uri));
 
-    public boolean hasAccess(String role, String path) {
-        return roleAccessMap.getOrDefault(role, List.of())
+    public boolean hasAccess(String role, String method, String path) {
+        return roleAccessMap.getOrDefault(role, Map.of())
+                .getOrDefault(method, List.of())
                 .stream()
                 .anyMatch(pattern -> path.matches(pattern.replace("**", ".*")));
     }
