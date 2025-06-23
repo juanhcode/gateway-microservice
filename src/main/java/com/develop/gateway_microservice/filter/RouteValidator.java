@@ -18,10 +18,10 @@ public class RouteValidator {
 
     private static final Map<String, Map<String, List<String>>> roleAccessMap = Map.of(
             "Administrator", Map.of(
-                    "GET", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**"),
-                    "POST", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**"),
-                    "PUT", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**"),
-                    "DELETE", List.of("/products/**", "/orders/purchases/**", "payment-status/**", "notifications/**", "/users/**", "auth/**")
+                    "GET", List.of("/products/**", "/orders/purchases/**", "/payment-status/**", "/notifications/**", "/users/**", "/auth/**"),
+                    "POST", List.of("/products", "/orders/purchases/", "/payment-status/", "/notifications/**", "/users/**", "/auth/**"),
+                    "PUT", List.of("/products/**", "/orders/purchases/**", "/payment-status/**", "/notifications/**", "/users/**", "/auth/**"),
+                    "DELETE", List.of("/products/**", "/orders/purchases/**", "/payment-status/**", "/notifications/**", "/users/**", "/auth/**")
             ),
             "Delivery", Map.of(
                     "GET", List.of("/orders/purchases/*/*", "/products", "/products/*"),
