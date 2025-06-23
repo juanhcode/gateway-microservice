@@ -31,6 +31,6 @@ public class RouteValidator {
     public boolean hasAccess(String role, String path) {
         return roleAccessMap.getOrDefault(role, List.of())
                 .stream()
-                .anyMatch(path::startsWith);
-    };
+                .anyMatch(pattern -> path.matches(pattern.replace("**", ".*")));
+    }
 }
