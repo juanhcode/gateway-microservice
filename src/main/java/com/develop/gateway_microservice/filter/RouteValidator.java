@@ -63,8 +63,21 @@ public class RouteValidator {
                     )
             ),
             "Customer", Map.of(
-                    "GET", List.of("/products", "/products/*", "/orders/purchases/*", "/orders/purchases/*/*", "/notifications/*"),
-                    "POST", List.of("/orders/purchases", "/users/get-users")
+                    "GET", List.of(
+                            "/users/.*",
+                            "/products",
+                            "/products/.*",
+                            "/orders/purchases/.*",
+                            "/orders/purchases/.*/.*",
+                            "/notifications/.*"
+                    ),
+                    "POST", List.of(
+                            "/orders/purchases",
+                            "/users/get-users"
+                    ),
+                    "PUT", List.of(
+                            "/orders/purchases/.*"
+                    )
             ),
             "default-role", Map.of(
                     "POST", List.of("/users/get-users")
