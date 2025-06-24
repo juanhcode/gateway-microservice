@@ -70,6 +70,16 @@ spring:
               args:
                 name: productsCircuitBreaker
                 fallbackUri: forward:/fallback/products
+        - id: delivery-service
+          uri: http://delivery-service:8087
+          predicates:
+            - Path=/deliveries/**
+          filters:
+            - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                name: deliveryCircuitBreaker
+                fallbackUri: forward:/fallback/deliveries
 
     httpclient:
       connect-timeout: 5000
