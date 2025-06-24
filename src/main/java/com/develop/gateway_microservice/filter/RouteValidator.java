@@ -25,7 +25,8 @@ public class RouteValidator {
                             "/payment-status/**",
                             "/notifications/**",
                             "/users/**",
-                            "/auth/**"
+                            "/auth/**",
+                            "/deliveries/**"
                     ),
                     "POST", List.of(
                             "/products",
@@ -33,7 +34,8 @@ public class RouteValidator {
                             "/payment-status/**",
                             "/notifications/**",
                             "/users/**",
-                            "/auth/**"
+                            "/auth/**",
+                            "/deliveries/**"
                     ),
                     "PUT", List.of(
                             "/products/**",
@@ -41,7 +43,8 @@ public class RouteValidator {
                             "/payment-status/**",
                             "/notifications/**",
                             "/users/**",
-                            "/auth/**"
+                            "/auth/**",
+                            "/deliveries/**"
                     ),
                     "DELETE", List.of(
                             "/products/**",
@@ -49,17 +52,24 @@ public class RouteValidator {
                             "/payment-status/**",
                             "/notifications/**",
                             "/users/**",
-                            "/auth/**"
+                            "/auth/**",
+                            "/deliveries/**"
                     )
             ),
             "Delivery", Map.of(
                     "GET", List.of(
                             "/users/.*",
                             "/orders/purchases/.*/.*",
-                            "/notifications/.*"
+                            "/notifications/.*",
+                            "/deliveries",
+                            "/deliveries/status"
+
                     ),
                     "POST", List.of(
                             "/users/get-users"
+                    ),
+                    "PUT", List.of(
+                            "/deliveries/.*"
                     )
             ),
             "Customer", Map.of(
@@ -70,14 +80,17 @@ public class RouteValidator {
                             "/orders/purchases/.*",
                             "/orders/purchases/.*/.*",
                             "/notifications/.*",
-                            "/payment-status/.*"
+                            "/payment-status/.*",
+                            "/deliveries",
+                            "/deliveries/status"
                     ),
                     "POST", List.of(
                             "/orders/purchases",
                             "/users/get-users"
                     ),
                     "PUT", List.of(
-                            "/orders/purchases/.*"
+                            "/orders/purchases/.*",
+                            "/notifications/.*"
                     )
             ),
             "default-role", Map.of(
