@@ -69,7 +69,8 @@ public class RouteValidator {
                             "/products/.*",
                             "/orders/purchases/.*",
                             "/orders/purchases/.*/.*",
-                            "/notifications/.*"
+                            "/notifications/.*",
+                            "/payment-status/.*"
                     ),
                     "POST", List.of(
                             "/orders/purchases",
