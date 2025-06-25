@@ -86,7 +86,8 @@ public class RouteValidator {
                     ),
                     "POST", List.of(
                             "/orders/purchases",
-                            "/users/get-users"
+                            "/users/get-users",
+                            "/deliveries"
                     ),
                     "PUT", List.of(
                             "/orders/purchases/.*",
