@@ -26,7 +26,8 @@ public class RouteValidator {
                             "/notifications/**",
                             "/users/**",
                             "/auth/**",
-                            "/deliveries/**"
+                            "/deliveries/**",
+                            "/orders/purchases"
                     ),
                     "POST", List.of(
                             "/products",
@@ -63,7 +64,8 @@ public class RouteValidator {
                             "/notifications/.*",
                             "/deliveries",
                             "/deliveries/status",
-                            "/deliveries/.*"
+                            "/deliveries/.*",
+                            "/orders/purchases/.*"
                     ),
                     "POST", List.of(
                             "/users/get-users"
