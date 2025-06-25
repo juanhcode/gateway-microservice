@@ -65,7 +65,7 @@ public class RouteValidator {
                             "/deliveries",
                             "/deliveries/status",
                             "/deliveries/.*",
-                            "/orders/purchases/.*"
+                            "/orders/purchases"
                     ),
                     "POST", List.of(
                             "/users/get-users"
