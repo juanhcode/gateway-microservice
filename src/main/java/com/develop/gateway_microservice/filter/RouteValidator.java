@@ -71,7 +71,8 @@ public class RouteValidator {
                             "/users/get-users"
                     ),
                     "PUT", List.of(
-                            "/deliveries/.*"
+                            "/deliveries/.*",
+                            "/orders/purchases/.*"
                     )
             ),
             "Customer", Map.of(
