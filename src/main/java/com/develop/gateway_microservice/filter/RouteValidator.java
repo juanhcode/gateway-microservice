@@ -37,7 +37,7 @@ public class RouteValidator {
                             "/users/**",
                             "/auth/**",
                             "/deliveries/**",
-                            "/payments/**"
+                            "/orders/purchases/create-test-payment/**"
                     ),
                     "PUT", List.of(
                             "/products/**",
@@ -93,7 +93,7 @@ public class RouteValidator {
                             "/orders/purchases",
                             "/users/get-users",
                             "/deliveries",
-                            "/payments/**"
+                            "/orders/purchases/create-test-payment/**"
                     ),
                     "PUT", List.of(
                             "/orders/purchases/.*",
