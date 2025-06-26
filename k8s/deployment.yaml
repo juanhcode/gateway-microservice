@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: gateway-microservice
-          image: juanhoyos/microservice:gateway-v48
+          image: juanhoyos/microservice:gateway-v49
           ports:
             - containerPort: 8080
           env:
